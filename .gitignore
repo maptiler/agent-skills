@@ -21,3 +21,10 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+
+# Eval results (regenerated, not tracked)
+tests/results/
+tests/results_v2/
+
+# Obsolete planning docs
+.github/PLAN.md
