@@ -1,0 +1,1510 @@
+{
+  "exit_reason": "max_iterations (5)",
+  "original_description": "Expert coding skill for building interactive web maps with MapTiler SDK JS (built on MapLibre GL JS). USE WHEN the user wants to add a map to a web application, show locations on a map, display geographic data, build a store locator, create data visualizations on maps, add geocoding or address search, show routes or GPS tracks, display 3D terrain or globe view, use satellite imagery, add markers or popups, create heatmaps or clustering, embed static map images, get elevation data, or do IP geolocation. Also USE WHEN the user mentions MapLibre GL JS \u2014 MapTiler SDK extends MapLibre with built-in cloud services, helpers, and session billing. Covers React, Vue, Svelte, Angular, Next.js, and vanilla JS. Includes MapTiler Cloud REST APIs, vector layer helpers, weather visualization, and framework-specific patterns.",
+  "best_description": "ALWAYS invoke this skill when the user's request involves a map, mapping, markers, geocoding, addresses, coordinates, locations on a map, geographic visualization, or spatial data in a web context. This is the primary skill for web mapping tasks \u2014 interactive maps, static map images, address search/autocomplete, reverse geocoding, GeoJSON display, marker clustering, heatmaps, 3D terrain, globe views, satellite imagery, weather overlays, map theming (dark/light), GPS tracks, elevation, geolocation, and route display. Covers React, Next.js, Vue, Svelte, Angular, vanilla JS. Also applies when the user mentions MapLibre GL JS. If the word \"map\" appears in a web development context, or the user wants to show places, points, or geographic data visually \u2014 trigger this skill.",
+  "best_score": "3/5",
+  "best_train_score": "6/15",
+  "best_test_score": "3/5",
+  "final_description": "TRIGGER THIS SKILL for any web development task where the user wants to display a map, work with geographic coordinates, or build location-based features. This is the default mapping skill \u2014 it handles interactive maps, static map images, markers, popups, geocoding, address autocomplete, reverse geocoding, store locators, GeoJSON, clustering, heatmaps, 3D terrain, globe views, satellite imagery, weather layers, dark/light map themes, GPS tracks, elevation, geolocation, routes, and all MapLibre GL JS work. Supports React, Next.js, Vue, Svelte, Angular, vanilla JS. If the user's task involves showing anything on a map, finding/displaying locations, or geographic data in a browser \u2014 always invoke this skill first.",
+  "iterations_run": 5,
+  "holdout": 0.3,
+  "train_size": 15,
+  "test_size": 5,
+  "history": [
+    {
+      "iteration": 1,
+      "description": "Use this skill whenever the user's task involves a map, geographic visualization, or location-based feature on the web. Triggers include: displaying an interactive or static map, placing markers or popups, rendering GeoJSON (points, lines, polygons), heatmaps, clustering, geocoding/address search, GPX/GPS track display, 3D terrain, globe view, satellite imagery, weather layers, map style switching (dark/light), elevation data, IP geolocation, or integrating any of these into React, Next.js, Vue, Svelte, or Angular. Also use when the user mentions MapLibre GL JS \u2014 MapTiler SDK extends it with built-in cloud services. If the query involves showing anything on a map or working with geographic/spatial data in a web context, invoke this skill first.",
+      "train_passed": 7,
+      "train_failed": 8,
+      "train_total": 15,
+      "train_results": [
+        {
+          "query": "when the user clicks on the map I want to show the address of that point in a popup",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "we're using maplibre-gl directly right now but want to add geocoding and better styles, is there a wrapper or SDK that helps?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "create a reusable map component for our Next.js 14 App Router project, needs to work with server components, show user location",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "we're building a store locator page for our retail chain \u2014 user types a city, sees nearest shops on a map with pins, clicks for details",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I want a cool 3D spinning globe on my landing page showing where our customers are around the world, with dots and a dark theme",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I need to generate a static map image showing a delivery location for our order confirmation emails, no JS just a PNG",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have 10000 markers on a map and it's super slow, how do I cluster them so it performs well?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "add a wind speed and temperature overlay to my map, like a weather radar layer",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I have a checkout form and need an address autocomplete field that geocodes what the user types and shows it on a small map preview",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "my app has dark mode, I need the map to switch between light and dark styles when the user toggles the theme",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I need to add an interactive map to my React app showing our office locations, the user should be able to pan and zoom",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "build me an outdoor map with 3D terrain showing elevation for a hiking app, user should see the mountains in 3D",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I need turn-by-turn driving directions with voice navigation between two addresses in my mobile app",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Create a bar chart and line chart dashboard showing monthly sales data using D3.js",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers using quicksort",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ],
+      "test_passed": 2,
+      "test_failed": 3,
+      "test_total": 5,
+      "test_results": [
+        {
+          "query": "show satellite imagery for a construction site, user provides coordinates, I need to overlay a polygon boundary on top",
+          "should_trigger": true,
+          "trigger_rate": 1.0,
+          "triggers": 2,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "user uploads a GPX file from their Garmin, display the hiking trail on a map with elevation coloring",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "visualize our customer locations as a heatmap on a map, I have a GeoJSON file with ~50k points, need it to look good on a dashboard",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have GeoJSON polygons for sales territories, show them on a map color-coded by revenue with a legend",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I need users to draw polygons and lines on a canvas for a vector graphics editor",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ],
+      "passed": 7,
+      "failed": 8,
+      "total": 15,
+      "results": [
+        {
+          "query": "when the user clicks on the map I want to show the address of that point in a popup",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "we're using maplibre-gl directly right now but want to add geocoding and better styles, is there a wrapper or SDK that helps?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "create a reusable map component for our Next.js 14 App Router project, needs to work with server components, show user location",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "we're building a store locator page for our retail chain \u2014 user types a city, sees nearest shops on a map with pins, clicks for details",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I want a cool 3D spinning globe on my landing page showing where our customers are around the world, with dots and a dark theme",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I need to generate a static map image showing a delivery location for our order confirmation emails, no JS just a PNG",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have 10000 markers on a map and it's super slow, how do I cluster them so it performs well?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "add a wind speed and temperature overlay to my map, like a weather radar layer",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I have a checkout form and need an address autocomplete field that geocodes what the user types and shows it on a small map preview",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "my app has dark mode, I need the map to switch between light and dark styles when the user toggles the theme",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I need to add an interactive map to my React app showing our office locations, the user should be able to pan and zoom",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "build me an outdoor map with 3D terrain showing elevation for a hiking app, user should see the mountains in 3D",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I need turn-by-turn driving directions with voice navigation between two addresses in my mobile app",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Create a bar chart and line chart dashboard showing monthly sales data using D3.js",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers using quicksort",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "iteration": 2,
+      "description": "Use this skill for ANY web task involving maps, locations, or geographic data. This includes: adding a map to a page (React, Next.js, Vue, Svelte, Angular, or vanilla JS), markers, popups, geocoding, reverse geocoding, address autocomplete, static map images, GeoJSON rendering, clustering large point datasets, heatmaps, 3D terrain, globe visualization, satellite imagery, weather overlays, map dark/light theme switching, GPS/GPX tracks, elevation data, IP geolocation, route display, or store locators. Also triggers when the user mentions MapLibre GL JS \u2014 MapTiler SDK wraps and extends it. If a user wants to show, find, or interact with places or coordinates in a browser, use this skill.",
+      "train_passed": 7,
+      "train_failed": 8,
+      "train_total": 15,
+      "train_results": [
+        {
+          "query": "when the user clicks on the map I want to show the address of that point in a popup",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "create a reusable map component for our Next.js 14 App Router project, needs to work with server components, show user location",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "we're using maplibre-gl directly right now but want to add geocoding and better styles, is there a wrapper or SDK that helps?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I want a cool 3D spinning globe on my landing page showing where our customers are around the world, with dots and a dark theme",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "we're building a store locator page for our retail chain \u2014 user types a city, sees nearest shops on a map with pins, clicks for details",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I have 10000 markers on a map and it's super slow, how do I cluster them so it performs well?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I need to generate a static map image showing a delivery location for our order confirmation emails, no JS just a PNG",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "add a wind speed and temperature overlay to my map, like a weather radar layer",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have a checkout form and need an address autocomplete field that geocodes what the user types and shows it on a small map preview",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "my app has dark mode, I need the map to switch between light and dark styles when the user toggles the theme",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I need to add an interactive map to my React app showing our office locations, the user should be able to pan and zoom",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "build me an outdoor map with 3D terrain showing elevation for a hiking app, user should see the mountains in 3D",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Create a bar chart and line chart dashboard showing monthly sales data using D3.js",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers using quicksort",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I need turn-by-turn driving directions with voice navigation between two addresses in my mobile app",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ],
+      "test_passed": 1,
+      "test_failed": 4,
+      "test_total": 5,
+      "test_results": [
+        {
+          "query": "show satellite imagery for a construction site, user provides coordinates, I need to overlay a polygon boundary on top",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "user uploads a GPX file from their Garmin, display the hiking trail on a map with elevation coloring",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "visualize our customer locations as a heatmap on a map, I have a GeoJSON file with ~50k points, need it to look good on a dashboard",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have GeoJSON polygons for sales territories, show them on a map color-coded by revenue with a legend",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I need users to draw polygons and lines on a canvas for a vector graphics editor",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ],
+      "passed": 7,
+      "failed": 8,
+      "total": 15,
+      "results": [
+        {
+          "query": "when the user clicks on the map I want to show the address of that point in a popup",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "create a reusable map component for our Next.js 14 App Router project, needs to work with server components, show user location",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "we're using maplibre-gl directly right now but want to add geocoding and better styles, is there a wrapper or SDK that helps?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I want a cool 3D spinning globe on my landing page showing where our customers are around the world, with dots and a dark theme",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "we're building a store locator page for our retail chain \u2014 user types a city, sees nearest shops on a map with pins, clicks for details",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I have 10000 markers on a map and it's super slow, how do I cluster them so it performs well?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I need to generate a static map image showing a delivery location for our order confirmation emails, no JS just a PNG",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "add a wind speed and temperature overlay to my map, like a weather radar layer",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have a checkout form and need an address autocomplete field that geocodes what the user types and shows it on a small map preview",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "my app has dark mode, I need the map to switch between light and dark styles when the user toggles the theme",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I need to add an interactive map to my React app showing our office locations, the user should be able to pan and zoom",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "build me an outdoor map with 3D terrain showing elevation for a hiking app, user should see the mountains in 3D",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Create a bar chart and line chart dashboard showing monthly sales data using D3.js",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers using quicksort",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I need turn-by-turn driving directions with voice navigation between two addresses in my mobile app",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "iteration": 3,
+      "description": "A specialized coding assistant for the MapTiler SDK JS. Use this skill whenever a user wants to build anything involving a map, geographic visualization, or location feature in a web app. This is the RIGHT skill for: interactive maps, markers, popups, geocoding, address autocomplete, reverse geocoding, static map images, GeoJSON, point clustering, heatmaps, 3D terrain, globe views, satellite imagery, weather layers, map theming, GPS/GPX tracks, elevation, IP geolocation, route display, store locators \u2014 in React, Next.js, Vue, Svelte, Angular, or vanilla JS. ALSO use when the user mentions MapLibre GL JS, since MapTiler SDK wraps and extends it. If coordinates, places, or a map appear anywhere in the request, invoke this skill.",
+      "train_passed": 5,
+      "train_failed": 10,
+      "train_total": 15,
+      "train_results": [
+        {
+          "query": "create a reusable map component for our Next.js 14 App Router project, needs to work with server components, show user location",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "we're using maplibre-gl directly right now but want to add geocoding and better styles, is there a wrapper or SDK that helps?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "when the user clicks on the map I want to show the address of that point in a popup",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I want a cool 3D spinning globe on my landing page showing where our customers are around the world, with dots and a dark theme",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "we're building a store locator page for our retail chain \u2014 user types a city, sees nearest shops on a map with pins, clicks for details",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I need to generate a static map image showing a delivery location for our order confirmation emails, no JS just a PNG",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have 10000 markers on a map and it's super slow, how do I cluster them so it performs well?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "add a wind speed and temperature overlay to my map, like a weather radar layer",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have a checkout form and need an address autocomplete field that geocodes what the user types and shows it on a small map preview",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "my app has dark mode, I need the map to switch between light and dark styles when the user toggles the theme",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "build me an outdoor map with 3D terrain showing elevation for a hiking app, user should see the mountains in 3D",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I need to add an interactive map to my React app showing our office locations, the user should be able to pan and zoom",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I need turn-by-turn driving directions with voice navigation between two addresses in my mobile app",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Create a bar chart and line chart dashboard showing monthly sales data using D3.js",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers using quicksort",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ],
+      "test_passed": 2,
+      "test_failed": 3,
+      "test_total": 5,
+      "test_results": [
+        {
+          "query": "show satellite imagery for a construction site, user provides coordinates, I need to overlay a polygon boundary on top",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "user uploads a GPX file from their Garmin, display the hiking trail on a map with elevation coloring",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "visualize our customer locations as a heatmap on a map, I have a GeoJSON file with ~50k points, need it to look good on a dashboard",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have GeoJSON polygons for sales territories, show them on a map color-coded by revenue with a legend",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I need users to draw polygons and lines on a canvas for a vector graphics editor",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ],
+      "passed": 5,
+      "failed": 10,
+      "total": 15,
+      "results": [
+        {
+          "query": "create a reusable map component for our Next.js 14 App Router project, needs to work with server components, show user location",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "we're using maplibre-gl directly right now but want to add geocoding and better styles, is there a wrapper or SDK that helps?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "when the user clicks on the map I want to show the address of that point in a popup",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I want a cool 3D spinning globe on my landing page showing where our customers are around the world, with dots and a dark theme",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "we're building a store locator page for our retail chain \u2014 user types a city, sees nearest shops on a map with pins, clicks for details",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I need to generate a static map image showing a delivery location for our order confirmation emails, no JS just a PNG",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have 10000 markers on a map and it's super slow, how do I cluster them so it performs well?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "add a wind speed and temperature overlay to my map, like a weather radar layer",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have a checkout form and need an address autocomplete field that geocodes what the user types and shows it on a small map preview",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "my app has dark mode, I need the map to switch between light and dark styles when the user toggles the theme",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "build me an outdoor map with 3D terrain showing elevation for a hiking app, user should see the mountains in 3D",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I need to add an interactive map to my React app showing our office locations, the user should be able to pan and zoom",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I need turn-by-turn driving directions with voice navigation between two addresses in my mobile app",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Create a bar chart and line chart dashboard showing monthly sales data using D3.js",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers using quicksort",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "iteration": 4,
+      "description": "ALWAYS invoke this skill when the user's request involves a map, mapping, markers, geocoding, addresses, coordinates, locations on a map, geographic visualization, or spatial data in a web context. This is the primary skill for web mapping tasks \u2014 interactive maps, static map images, address search/autocomplete, reverse geocoding, GeoJSON display, marker clustering, heatmaps, 3D terrain, globe views, satellite imagery, weather overlays, map theming (dark/light), GPS tracks, elevation, geolocation, and route display. Covers React, Next.js, Vue, Svelte, Angular, vanilla JS. Also applies when the user mentions MapLibre GL JS. If the word \"map\" appears in a web development context, or the user wants to show places, points, or geographic data visually \u2014 trigger this skill.",
+      "train_passed": 6,
+      "train_failed": 9,
+      "train_total": 15,
+      "train_results": [
+        {
+          "query": "when the user clicks on the map I want to show the address of that point in a popup",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "create a reusable map component for our Next.js 14 App Router project, needs to work with server components, show user location",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "we're using maplibre-gl directly right now but want to add geocoding and better styles, is there a wrapper or SDK that helps?",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I want a cool 3D spinning globe on my landing page showing where our customers are around the world, with dots and a dark theme",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "we're building a store locator page for our retail chain \u2014 user types a city, sees nearest shops on a map with pins, clicks for details",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I need to generate a static map image showing a delivery location for our order confirmation emails, no JS just a PNG",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have 10000 markers on a map and it's super slow, how do I cluster them so it performs well?",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "add a wind speed and temperature overlay to my map, like a weather radar layer",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have a checkout form and need an address autocomplete field that geocodes what the user types and shows it on a small map preview",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "my app has dark mode, I need the map to switch between light and dark styles when the user toggles the theme",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I need to add an interactive map to my React app showing our office locations, the user should be able to pan and zoom",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "build me an outdoor map with 3D terrain showing elevation for a hiking app, user should see the mountains in 3D",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Create a bar chart and line chart dashboard showing monthly sales data using D3.js",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I need turn-by-turn driving directions with voice navigation between two addresses in my mobile app",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers using quicksort",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ],
+      "test_passed": 3,
+      "test_failed": 2,
+      "test_total": 5,
+      "test_results": [
+        {
+          "query": "show satellite imagery for a construction site, user provides coordinates, I need to overlay a polygon boundary on top",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "user uploads a GPX file from their Garmin, display the hiking trail on a map with elevation coloring",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "visualize our customer locations as a heatmap on a map, I have a GeoJSON file with ~50k points, need it to look good on a dashboard",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have GeoJSON polygons for sales territories, show them on a map color-coded by revenue with a legend",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I need users to draw polygons and lines on a canvas for a vector graphics editor",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ],
+      "passed": 6,
+      "failed": 9,
+      "total": 15,
+      "results": [
+        {
+          "query": "when the user clicks on the map I want to show the address of that point in a popup",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "create a reusable map component for our Next.js 14 App Router project, needs to work with server components, show user location",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "we're using maplibre-gl directly right now but want to add geocoding and better styles, is there a wrapper or SDK that helps?",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I want a cool 3D spinning globe on my landing page showing where our customers are around the world, with dots and a dark theme",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "we're building a store locator page for our retail chain \u2014 user types a city, sees nearest shops on a map with pins, clicks for details",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I need to generate a static map image showing a delivery location for our order confirmation emails, no JS just a PNG",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have 10000 markers on a map and it's super slow, how do I cluster them so it performs well?",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "add a wind speed and temperature overlay to my map, like a weather radar layer",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have a checkout form and need an address autocomplete field that geocodes what the user types and shows it on a small map preview",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "my app has dark mode, I need the map to switch between light and dark styles when the user toggles the theme",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I need to add an interactive map to my React app showing our office locations, the user should be able to pan and zoom",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "build me an outdoor map with 3D terrain showing elevation for a hiking app, user should see the mountains in 3D",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Create a bar chart and line chart dashboard showing monthly sales data using D3.js",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I need turn-by-turn driving directions with voice navigation between two addresses in my mobile app",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers using quicksort",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "iteration": 5,
+      "description": "TRIGGER THIS SKILL for any web development task where the user wants to display a map, work with geographic coordinates, or build location-based features. This is the default mapping skill \u2014 it handles interactive maps, static map images, markers, popups, geocoding, address autocomplete, reverse geocoding, store locators, GeoJSON, clustering, heatmaps, 3D terrain, globe views, satellite imagery, weather layers, dark/light map themes, GPS tracks, elevation, geolocation, routes, and all MapLibre GL JS work. Supports React, Next.js, Vue, Svelte, Angular, vanilla JS. If the user's task involves showing anything on a map, finding/displaying locations, or geographic data in a browser \u2014 always invoke this skill first.",
+      "train_passed": 6,
+      "train_failed": 9,
+      "train_total": 15,
+      "train_results": [
+        {
+          "query": "when the user clicks on the map I want to show the address of that point in a popup",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "we're using maplibre-gl directly right now but want to add geocoding and better styles, is there a wrapper or SDK that helps?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "create a reusable map component for our Next.js 14 App Router project, needs to work with server components, show user location",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I want a cool 3D spinning globe on my landing page showing where our customers are around the world, with dots and a dark theme",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I need to generate a static map image showing a delivery location for our order confirmation emails, no JS just a PNG",
+          "should_trigger": true,
+          "trigger_rate": 1.0,
+          "triggers": 2,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "we're building a store locator page for our retail chain \u2014 user types a city, sees nearest shops on a map with pins, clicks for details",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have 10000 markers on a map and it's super slow, how do I cluster them so it performs well?",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "add a wind speed and temperature overlay to my map, like a weather radar layer",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have a checkout form and need an address autocomplete field that geocodes what the user types and shows it on a small map preview",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "my app has dark mode, I need the map to switch between light and dark styles when the user toggles the theme",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I need to add an interactive map to my React app showing our office locations, the user should be able to pan and zoom",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "build me an outdoor map with 3D terrain showing elevation for a hiking app, user should see the mountains in 3D",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Create a bar chart and line chart dashboard showing monthly sales data using D3.js",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I need turn-by-turn driving directions with voice navigation between two addresses in my mobile app",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers using quicksort",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ],
+      "test_passed": 2,
+      "test_failed": 3,
+      "test_total": 5,
+      "test_results": [
+        {
+          "query": "show satellite imagery for a construction site, user provides coordinates, I need to overlay a polygon boundary on top",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "user uploads a GPX file from their Garmin, display the hiking trail on a map with elevation coloring",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "visualize our customer locations as a heatmap on a map, I have a GeoJSON file with ~50k points, need it to look good on a dashboard",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have GeoJSON polygons for sales territories, show them on a map color-coded by revenue with a legend",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I need users to draw polygons and lines on a canvas for a vector graphics editor",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ],
+      "passed": 6,
+      "failed": 9,
+      "total": 15,
+      "results": [
+        {
+          "query": "when the user clicks on the map I want to show the address of that point in a popup",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "we're using maplibre-gl directly right now but want to add geocoding and better styles, is there a wrapper or SDK that helps?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "create a reusable map component for our Next.js 14 App Router project, needs to work with server components, show user location",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I want a cool 3D spinning globe on my landing page showing where our customers are around the world, with dots and a dark theme",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I need to generate a static map image showing a delivery location for our order confirmation emails, no JS just a PNG",
+          "should_trigger": true,
+          "trigger_rate": 1.0,
+          "triggers": 2,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "we're building a store locator page for our retail chain \u2014 user types a city, sees nearest shops on a map with pins, clicks for details",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have 10000 markers on a map and it's super slow, how do I cluster them so it performs well?",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "add a wind speed and temperature overlay to my map, like a weather radar layer",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I have a checkout form and need an address autocomplete field that geocodes what the user types and shows it on a small map preview",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "my app has dark mode, I need the map to switch between light and dark styles when the user toggles the theme",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I need to add an interactive map to my React app showing our office locations, the user should be able to pan and zoom",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "build me an outdoor map with 3D terrain showing elevation for a hiking app, user should see the mountains in 3D",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Create a bar chart and line chart dashboard showing monthly sales data using D3.js",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I need turn-by-turn driving directions with voice navigation between two addresses in my mobile app",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers using quicksort",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ]
+    }
+  ]
+}

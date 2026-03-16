@@ -21,11 +21,3 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
-
-# Test & eval artifacts
-tests/
-evals/
-
-# Internal planning docs
-.github/PLAN.md
-.github/NAMING-ANALYSIS.md
