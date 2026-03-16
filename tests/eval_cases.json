@@ -106,5 +106,13 @@
     "expect_skill_triggered": true,
     "expect_in_output": ["config.apiKey"],
     "expect_not_in_output": ["pk.ey", "sk-", "abc123"]
+  },
+  {
+    "id": "correctness-css-import",
+    "description": "Must import SDK CSS to avoid broken map rendering",
+    "prompt": "Create a map component with markers in a Vite React app",
+    "expect_skill_triggered": true,
+    "expect_in_output": ["maptiler-sdk.css"],
+    "notes": "Forgetting CSS import is the second most common AI mistake after [lat, lng] order — results in a white screen or unstyled controls"
   }
 ]

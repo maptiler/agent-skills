@@ -268,6 +268,11 @@ const url = maptilersdk.staticMaps.centered(
 ```
 
 > Full helpers API with all options: `references/helpers-api.md`
+>
+> **Working HTML examples** (complete, copy-paste ready):
+> `scripts/basic-map.html`, `scripts/geocoding-search.html`, `scripts/3d-terrain.html`,
+> `scripts/globe-projection.html`, `scripts/clustering.html`, `scripts/heatmap.html`,
+> `scripts/interactive-layers.html`, `scripts/helpers-dataviz.html`
 
 ---
 
@@ -354,7 +359,7 @@ const point = await maptilersdk.elevation.at([14.4178, 50.1167]);
 // Returns [lng, lat, elevationMeters]
 ```
 
-> Complete REST API reference with endpoints: `references/cloud-apis.md`
+> SDK wrappers for all APIs: `references/cloud-apis.md` · REST API docs: [docs.maptiler.com/cloud/api](https://docs.maptiler.com/cloud/api/)
 
 ---
 
