@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Terrain & Buildings - MapTiler SDK</title>
+  <link href="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.css" rel="stylesheet" />
+  <style>
+    body { margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+    #map { position: absolute; inset: 0; }
+    
+    .controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(15, 23, 42, 0.9);
+      color: white;
+      padding: 16px;
+      border-radius: 8px;
+      z-index: 1;
+      min-width: 220px;
+    }
+    .controls h3 { margin: 0 0 16px 0; font-size: 16px; }
+    
+    .control-group { margin-bottom: 16px; }
+    .control-group label { display: block; margin-bottom: 6px; font-size: 13px; color: #94a3b8; }
+    
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .slider-row input[type="range"] { flex: 1; }
+    .slider-row span { min-width: 40px; text-align: right; font-size: 14px; }
+    
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 8px 0;
+    }
+    .toggle-row input { width: 18px; height: 18px; }
+    
+    .preset-btn {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      background: #0891b2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .preset-btn:hover { background: #0e7490; }
+    
+    .divider {
+      height: 1px;
+      background: #334155;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  
+  <div class="controls">
+    <h3>🏔️ 3D Controls</h3>
+    
+    <div class="control-group">
+      <label>Terrain Exaggeration</label>
+      <div class="slider-row">
+        <input type="range" id="exaggeration" min="0" max="3" step="0.1" value="1.5">
+        <span id="exaggerationValue">1.5x</span>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <label>Camera Pitch</label>
+      <div class="slider-row">
+        <input type="range" id="pitch" min="0" max="85" value="60">
+        <span id="pitchValue">60°</span>
+      </div>
+    </div>
+    
+    <div class="divider"></div>
+    
+    <div class="toggle-row">
+      <input type="checkbox" id="terrainToggle" checked>
+      <label for="terrainToggle">3D Terrain</label>
+    </div>
+    
+    <div class="toggle-row">
+      <input type="checkbox" id="buildingsToggle" checked>
+      <label for="buildingsToggle">3D Buildings</label>
+    </div>
+    
+    <div class="divider"></div>
+    
+    <label style="font-size: 13px; color: #94a3b8; margin-bottom: 8px; display: block;">Fly to Location</label>
+    <button class="preset-btn" data-location="alps">🏔️ Swiss Alps</button>
+    <button class="preset-btn" data-location="prague">🏰 Prague Old Town</button>
+    <button class="preset-btn" data-location="grandcanyon">🏜️ Grand Canyon</button>
+    <button class="preset-btn" data-location="nyc">🗽 Manhattan</button>
+  </div>
+
+  <script src="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.umd.min.js"></script>
+  <script>
+    maptilersdk.config.apiKey = 'YOUR_API_KEY';
+
+    // Preset locations
+    const LOCATIONS = {
+      alps: { center: [7.6585, 45.9763], zoom: 12, pitch: 70, bearing: -20 },
+      prague: { center: [14.4205, 50.0875], zoom: 16, pitch: 60, bearing: 30 },
+      grandcanyon: { center: [-112.1401, 36.0544], zoom: 13, pitch: 75, bearing: 45 },
+      nyc: { center: [-74.0060, 40.7128], zoom: 15.5, pitch: 60, bearing: -20 }
+    };
+
+    // =========================================
+    // BEST PRACTICE: Enable terrain via constructor
+    // =========================================
+    const map = new maptilersdk.Map({
+      container: 'map',
+      style: maptilersdk.MapStyle.OUTDOOR,
+      center: LOCATIONS.alps.center,
+      zoom: LOCATIONS.alps.zoom,
+      pitch: LOCATIONS.alps.pitch,
+      bearing: LOCATIONS.alps.bearing,
+      terrain: true,
+      terrainExaggeration: 1.5,
+      terrainControl: true,
+      navigationControl: true
+    });
+
+    // =========================================
+    // Add 3D buildings after map loads
+    // =========================================
+    map.on('load', () => {
+      add3DBuildings();
+    });
+
+    function add3DBuildings() {
+      // Check if layer already exists
+      if (map.getLayer('3d-buildings')) return;
+      
+      map.addLayer({
+        id: '3d-buildings',
+        source: 'openmaptiles',
+        'source-layer': 'building',
+        type: 'fill-extrusion',
+        minzoom: 14,
+        paint: {
+          'fill-extrusion-color': [
+            'interpolate',
+            ['linear'],
+            ['get', 'render_height'],
+            0, '#e0e0e0',
+            50, '#c0c0c0',
+            100, '#a0a0a0',
+            200, '#808080'
+          ],
+          'fill-extrusion-height': ['get', 'render_height'],
+          'fill-extrusion-base': ['get', 'render_min_height'],
+          'fill-extrusion-opacity': 0.8
+        }
+      });
+    }
+
+    // =========================================
+    // BEST PRACTICE: Runtime terrain control
+    // =========================================
+    document.getElementById('terrainToggle').addEventListener('change', (e) => {
+      if (e.target.checked) {
+        const exaggeration = parseFloat(document.getElementById('exaggeration').value);
+        map.enableTerrain(exaggeration);
+      } else {
+        map.disableTerrain();
+      }
+    });
+
+    // Terrain exaggeration slider
+    document.getElementById('exaggeration').addEventListener('input', (e) => {
+      const value = parseFloat(e.target.value);
+      document.getElementById('exaggerationValue').textContent = value.toFixed(1) + 'x';
+      
+      if (document.getElementById('terrainToggle').checked) {
+        map.enableTerrain(value);
+      }
+    });
+
+    // Pitch slider
+    document.getElementById('pitch').addEventListener('input', (e) => {
+      const value = parseInt(e.target.value);
+      document.getElementById('pitchValue').textContent = value + '°';
+      map.setPitch(value);
+    });
+
+    // Buildings toggle
+    document.getElementById('buildingsToggle').addEventListener('change', (e) => {
+      if (map.getLayer('3d-buildings')) {
+        map.setLayoutProperty(
+          '3d-buildings',
+          'visibility',
+          e.target.checked ? 'visible' : 'none'
+        );
+      }
+    });
+
+    // =========================================
+    // BEST PRACTICE: flyTo for smooth 3D camera animation
+    // =========================================
+    document.querySelectorAll('.preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const location = LOCATIONS[btn.dataset.location];
+        
+        map.flyTo({
+          center: location.center,
+          zoom: location.zoom,
+          pitch: location.pitch,
+          bearing: location.bearing,
+          duration: 3000,
+          essential: true
+        });
+
+        // Update pitch slider to match
+        document.getElementById('pitch').value = location.pitch;
+        document.getElementById('pitchValue').textContent = location.pitch + '°';
+      });
+    });
+
+    // =========================================
+    // Re-add buildings on style change
+    // =========================================
+    map.on('styledata', () => {
+      // Small delay to ensure style is fully loaded
+      setTimeout(() => {
+        if (document.getElementById('buildingsToggle').checked) {
+          add3DBuildings();
+        }
+      }, 100);
+    });
+
+    // Sync pitch slider with map interactions
+    map.on('pitchend', () => {
+      const pitch = Math.round(map.getPitch());
+      document.getElementById('pitch').value = pitch;
+      document.getElementById('pitchValue').textContent = pitch + '°';
+    });
+  </script>
+</body>
+</html>

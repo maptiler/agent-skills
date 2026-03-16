@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Layers - MapTiler SDK</title>
+  <link href="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.css" rel="stylesheet" />
+  <style>
+    body { margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+    #map { position: absolute; inset: 0; }
+    
+    .controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: white;
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 1;
+      min-width: 200px;
+    }
+    .controls h3 { margin: 0 0 12px 0; }
+    .controls label { display: block; margin: 8px 0; cursor: pointer; }
+    .controls button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 12px;
+      background: #0891b2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .controls button:hover { background: #0e7490; }
+    
+    .style-select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  
+  <div class="controls">
+    <h3>Layer Controls</h3>
+    
+    <label>
+      <input type="checkbox" id="togglePoints" checked> Show Points
+    </label>
+    <label>
+      <input type="checkbox" id="toggleRoute" checked> Show Route
+    </label>
+    
+    <h4 style="margin: 16px 0 8px 0;">Map Style</h4>
+    <select id="styleSelect" class="style-select">
+      <option value="STREETS">Streets</option>
+      <option value="SATELLITE">Satellite</option>
+      <option value="HYBRID">Hybrid</option>
+      <option value="OUTDOOR">Outdoor</option>
+      <option value="TOPO">Topo</option>
+    </select>
+    
+    <button id="flyBtn">Fly to Random Point</button>
+  </div>
+
+  <script src="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.umd.min.js"></script>
+  <script>
+    maptilersdk.config.apiKey = 'YOUR_API_KEY';
+
+    // Sample data
+    const POINTS = {
+      type: 'FeatureCollection',
+      features: [
+        { type: 'Feature', geometry: { type: 'Point', coordinates: [14.4178, 50.1167] }, properties: { name: 'Prague', id: 1 }},
+        { type: 'Feature', geometry: { type: 'Point', coordinates: [14.4747, 48.9745] }, properties: { name: 'České Budějovice', id: 2 }},
+        { type: 'Feature', geometry: { type: 'Point', coordinates: [16.6068, 49.1951] }, properties: { name: 'Brno', id: 3 }},
+        { type: 'Feature', geometry: { type: 'Point', coordinates: [15.0588, 50.7663] }, properties: { name: 'Liberec', id: 4 }}
+      ]
+    };
+
+    const ROUTE = {
+      type: 'Feature',
+      geometry: {
+        type: 'LineString',
+        coordinates: [
+          [14.4178, 50.1167],
+          [14.4747, 48.9745],
+          [16.6068, 49.1951],
+          [15.0588, 50.7663],
+          [14.4178, 50.1167]
+        ]
+      }
+    };
+
+    // Initialize map
+    const map = new maptilersdk.Map({
+      container: 'map',
+      style: maptilersdk.MapStyle.STREETS,
+      center: [15.0, 49.8],
+      zoom: 7,
+      navigationControl: true
+    });
+
+    // =========================================
+    // BEST PRACTICE: Add layers after 'load' event
+    // =========================================
+    map.on('load', () => {
+      addAllLayers();
+    });
+
+    // =========================================
+    // BEST PRACTICE: Layer cleanup before adding
+    // Prevents "layer already exists" errors
+    // =========================================
+    function safeAddSource(id, config) {
+      if (map.getSource(id)) map.removeSource(id);
+      map.addSource(id, config);
+    }
+
+    function safeAddLayer(config) {
+      if (map.getLayer(config.id)) map.removeLayer(config.id);
+      map.addLayer(config);
+    }
+
+    function addAllLayers() {
+      // =========================================
+      // BEST PRACTICE: Check isStyleLoaded() before adding layers
+      // =========================================
+      if (!map.isStyleLoaded()) {
+        map.once('styledata', addAllLayers);
+        return;
+      }
+
+      // Route line with glow effect
+      safeAddSource('route', { type: 'geojson', data: ROUTE });
+      
+      // Glow layer (wider, blurred)
+      safeAddLayer({
+        id: 'route-glow',
+        type: 'line',
+        source: 'route',
+        paint: {
+          'line-color': '#0891b2',
+          'line-width': 12,
+          'line-blur': 8,
+          'line-opacity': 0.5
+        }
+      });
+      
+      // Main route line
+      safeAddLayer({
+        id: 'route-line',
+        type: 'line',
+        source: 'route',
+        paint: {
+          'line-color': '#ffffff',
+          'line-width': 3
+        }
+      });
+
+      // Points
+      safeAddSource('points', { type: 'geojson', data: POINTS });
+      
+      safeAddLayer({
+        id: 'points-layer',
+        type: 'circle',
+        source: 'points',
+        paint: {
+          'circle-radius': 10,
+          'circle-color': '#ef4444',
+          'circle-stroke-width': 3,
+          'circle-stroke-color': '#ffffff'
+        }
+      });
+
+      // Labels
+      safeAddLayer({
+        id: 'points-labels',
+        type: 'symbol',
+        source: 'points',
+        layout: {
+          'text-field': ['get', 'name'],
+          'text-offset': [0, 1.5],
+          'text-anchor': 'top',
+          'text-size': 12
+        },
+        paint: {
+          'text-color': '#333',
+          'text-halo-color': '#fff',
+          'text-halo-width': 2
+        }
+      });
+
+      setupInteractions();
+      applyVisibility();
+    }
+
+    // =========================================
+    // BEST PRACTICE: Hover effects with cursor change
+    // =========================================
+    function setupInteractions() {
+      map.on('mouseenter', 'points-layer', () => {
+        map.getCanvas().style.cursor = 'pointer';
+      });
+
+      map.on('mouseleave', 'points-layer', () => {
+        map.getCanvas().style.cursor = '';
+      });
+
+      map.on('click', 'points-layer', (e) => {
+        const feature = e.features[0];
+        
+        new maptilersdk.Popup()
+          .setLngLat(e.lngLat)
+          .setHTML(`<strong>${feature.properties.name}</strong>`)
+          .addTo(map);
+      });
+    }
+
+    // =========================================
+    // Layer visibility toggle
+    // =========================================
+    function applyVisibility() {
+      const showPoints = document.getElementById('togglePoints').checked;
+      const showRoute = document.getElementById('toggleRoute').checked;
+
+      if (map.getLayer('points-layer')) {
+        map.setLayoutProperty('points-layer', 'visibility', showPoints ? 'visible' : 'none');
+        map.setLayoutProperty('points-labels', 'visibility', showPoints ? 'visible' : 'none');
+      }
+      
+      if (map.getLayer('route-line')) {
+        map.setLayoutProperty('route-line', 'visibility', showRoute ? 'visible' : 'none');
+        map.setLayoutProperty('route-glow', 'visibility', showRoute ? 'visible' : 'none');
+      }
+    }
+
+    document.getElementById('togglePoints').addEventListener('change', applyVisibility);
+    document.getElementById('toggleRoute').addEventListener('change', applyVisibility);
+
+    // =========================================
+    // BEST PRACTICE: Re-add layers after style change
+    // =========================================
+    document.getElementById('styleSelect').addEventListener('change', (e) => {
+      const styleName = e.target.value;
+      map.setStyle(maptilersdk.MapStyle[styleName]);
+      
+      // CRITICAL: Layers are removed on style change
+      // Re-add them after style loads
+      map.once('styledata', () => {
+        addAllLayers();
+      });
+    });
+
+    // =========================================
+    // BEST PRACTICE: flyTo for smooth camera animation
+    // =========================================
+    document.getElementById('flyBtn').addEventListener('click', () => {
+      const randomPoint = POINTS.features[Math.floor(Math.random() * POINTS.features.length)];
+      
+      map.flyTo({
+        center: randomPoint.geometry.coordinates,
+        zoom: 12,
+        pitch: 45,
+        bearing: Math.random() * 60 - 30,
+        duration: 2000,
+        essential: true
+      });
+    });
+  </script>
+</body>
+</html>

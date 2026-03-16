@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic MapTiler Map</title>
+  <link href="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.css" rel="stylesheet" />
+  <style>
+    body { margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+    #map { position: absolute; inset: 0; }
+    
+    .info-box {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: white;
+      padding: 12px 16px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 1;
+      font-size: 14px;
+    }
+    .info-box h3 { margin: 0 0 8px 0; font-size: 16px; }
+    .info-box code { background: #f0f0f0; padding: 2px 6px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  
+  <div class="info-box">
+    <h3>🗺️ Basic Map Example</h3>
+    <p>Coordinates: <code id="coords">-</code></p>
+    <p>Zoom: <code id="zoom">-</code></p>
+  </div>
+
+  <script src="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.umd.min.js"></script>
+  <script>
+    // =========================================
+    // BEST PRACTICE: Set API key via global config
+    // This enables session billing optimization
+    // =========================================
+    maptilersdk.config.apiKey = 'YOUR_API_KEY';
+
+    // =========================================
+    // BEST PRACTICE: Use MapStyle enum, not URLs
+    // =========================================
+    const map = new maptilersdk.Map({
+      container: 'map',
+      style: maptilersdk.MapStyle.STREETS,
+      center: [14.4178, 50.1167],  // Prague
+      zoom: 12,
+      // Built-in controls via constructor flags (not manual addControl)
+      navigationControl: true,
+      scaleControl: true,
+      geolocateControl: true
+    });
+
+    // =========================================
+    // Update UI with map state
+    // =========================================
+    const coordsEl = document.getElementById('coords');
+    const zoomEl = document.getElementById('zoom');
+
+    function updateInfo() {
+      const center = map.getCenter();
+      coordsEl.textContent = `${center.lng.toFixed(4)}, ${center.lat.toFixed(4)}`;
+      zoomEl.textContent = map.getZoom().toFixed(2);
+    }
+
+    map.on('load', updateInfo);
+    map.on('moveend', updateInfo);
+
+    // =========================================
+    // Click handler
+    // =========================================
+    map.on('click', (e) => {
+      console.log('Clicked at:', e.lngLat);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Helpers Data Visualization - MapTiler SDK v3</title>
+  <link href="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.css" rel="stylesheet" />
+  <style>
+    body { margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+    #map { position: absolute; inset: 0; }
+
+    .controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 1;
+      min-width: 220px;
+    }
+    .controls h3 { margin: 0 0 12px 0; font-size: 16px; }
+    .controls p { margin: 0 0 12px 0; font-size: 12px; color: #666; }
+
+    .btn {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      background: #0891b2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .btn:hover { background: #0e7490; }
+    .btn.active { background: #065f73; }
+    .btn.secondary { background: #64748b; }
+    .btn.secondary:hover { background: #475569; }
+
+    .divider { height: 1px; background: #e2e8f0; margin: 12px 0; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <div class="controls">
+    <h3>Helpers Demo</h3>
+    <p>One-call data visualization using SDK helpers. No manual addSource/addLayer needed.</p>
+
+    <button class="btn" id="addPolyline">Add Polyline</button>
+    <button class="btn" id="addPolygon">Add Polygon</button>
+    <button class="btn" id="addPoints">Add Clustered Points</button>
+
+    <div class="divider"></div>
+
+    <button class="btn secondary" id="screenshot">Take Screenshot</button>
+    <button class="btn secondary" id="clearAll">Clear All</button>
+  </div>
+
+  <script src="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.umd.min.js"></script>
+  <script>
+    maptilersdk.config.apiKey = 'YOUR_API_KEY';
+
+    const map = new maptilersdk.Map({
+      container: 'map',
+      style: maptilersdk.MapStyle.STREETS,
+      center: [15.0, 49.8],
+      zoom: 7,
+      navigationControl: true,
+      scaleControl: true
+    });
+
+    // Sample data
+    const ROUTE = {
+      type: 'Feature',
+      geometry: {
+        type: 'LineString',
+        coordinates: [
+          [14.42, 50.08], [14.47, 49.95], [14.70, 49.70],
+          [15.05, 49.60], [15.50, 49.50], [15.80, 49.30],
+          [16.10, 49.20], [16.60, 49.20]
+        ]
+      }
+    };
+
+    const ZONES = {
+      type: 'FeatureCollection',
+      features: [
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[[14.2, 50.2], [14.7, 50.2], [14.7, 49.9], [14.2, 49.9], [14.2, 50.2]]]
+          },
+          properties: { name: 'Prague Region' }
+        },
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[[16.3, 49.35], [16.9, 49.35], [16.9, 49.05], [16.3, 49.05], [16.3, 49.35]]]
+          },
+          properties: { name: 'Brno Region' }
+        }
+      ]
+    };
+
+    function generatePoints(count) {
+      const features = [];
+      for (let i = 0; i < count; i++) {
+        features.push({
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [12 + Math.random() * 7, 48.5 + Math.random() * 2.5]
+          },
+          properties: {
+            name: `Location ${i + 1}`,
+            value: Math.floor(Math.random() * 100)
+          }
+        });
+      }
+      return { type: 'FeatureCollection', features };
+    }
+
+    // Track added layers for cleanup
+    const addedLayers = [];
+
+    map.on('load', () => {
+      // =========================================
+      // helpers.addPolyline — one call for a styled line
+      // Supports GeoJSON, GPX, KML, and MapTiler dataset UUIDs
+      // =========================================
+      document.getElementById('addPolyline').addEventListener('click', () => {
+        const result = maptilersdk.helpers.addPolyline(map, {
+          data: ROUTE,
+          lineColor: '#0066FF',
+          lineWidth: 4,
+          outline: true,
+          outlineColor: '#003399',
+          outlineWidth: 2,
+          beforeId: 'waterway-label'
+        });
+        addedLayers.push(result);
+        console.log('Polyline added:', result);
+      });
+
+      // =========================================
+      // helpers.addPolygon — one call for styled polygons
+      // =========================================
+      document.getElementById('addPolygon').addEventListener('click', () => {
+        const result = maptilersdk.helpers.addPolygon(map, {
+          data: ZONES,
+          fillColor: '#ef4444',
+          fillOpacity: 0.3,
+          outline: true,
+          outlineColor: '#dc2626',
+          outlineWidth: 2,
+          beforeId: 'waterway-label'
+        });
+        addedLayers.push(result);
+        console.log('Polygon added:', result);
+      });
+
+      // =========================================
+      // helpers.addPoint — one call for points with clustering
+      // No manual cluster setup needed!
+      // =========================================
+      document.getElementById('addPoints').addEventListener('click', () => {
+        const result = maptilersdk.helpers.addPoint(map, {
+          data: generatePoints(500),
+          pointColor: '#10b981',
+          pointRadius: 6,
+          cluster: true,
+          showLabel: true,
+          labelColor: '#FFFFFF',
+          beforeId: 'waterway-label'
+        });
+        addedLayers.push(result);
+        console.log('Points added:', result);
+      });
+
+      // =========================================
+      // helpers.takeScreenshot — capture map as PNG
+      // =========================================
+      document.getElementById('screenshot').addEventListener('click', async () => {
+        await maptilersdk.helpers.takeScreenshot(map, {
+          download: true,
+          filename: 'maptiler-helpers-demo.png'
+        });
+      });
+
+      // Clear all helper layers
+      document.getElementById('clearAll').addEventListener('click', () => {
+        addedLayers.forEach(result => {
+          Object.values(result).forEach(id => {
+            if (typeof id === 'string') {
+              if (map.getLayer(id)) map.removeLayer(id);
+              if (map.getSource(id)) map.removeSource(id);
+            }
+          });
+        });
+        addedLayers.length = 0;
+      });
+    });
+  </script>
+</body>
+</html>

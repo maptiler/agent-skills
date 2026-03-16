@@ -1,0 +1,110 @@
+[
+  {
+    "id": "trigger-generic-map",
+    "description": "Generic map request should trigger the skill",
+    "prompt": "I want to add an interactive map to my React app",
+    "expect_skill_triggered": true,
+    "expect_in_output": ["@maptiler/sdk", "useEffect", "useRef", "map.remove()"],
+    "expect_not_in_output": ["maplibre-gl"]
+  },
+  {
+    "id": "trigger-geocoding",
+    "description": "Address search should trigger geocoding patterns",
+    "prompt": "How do I add address search to my website?",
+    "expect_skill_triggered": true,
+    "expect_in_output": ["geocoding", "forward", "apiKey"]
+  },
+  {
+    "id": "trigger-store-locator",
+    "description": "Store locator intent should trigger the skill",
+    "prompt": "Build a store locator for my business with search and map pins",
+    "expect_skill_triggered": true,
+    "expect_in_output": ["@maptiler/sdk", "Marker"]
+  },
+  {
+    "id": "trigger-3d-terrain",
+    "description": "3D terrain request should use SDK terrain features",
+    "prompt": "Show mountains in 3D on a map",
+    "expect_skill_triggered": true,
+    "expect_in_output": ["terrain", "true"]
+  },
+  {
+    "id": "trigger-data-viz",
+    "description": "Data visualization should use helpers",
+    "prompt": "Visualize earthquake data on a map with clustering",
+    "expect_skill_triggered": true,
+    "expect_in_output": ["cluster"]
+  },
+  {
+    "id": "trigger-static-image",
+    "description": "Static map image should use staticMaps API",
+    "prompt": "Generate a map image for my email newsletter",
+    "expect_skill_triggered": true,
+    "expect_in_output": ["staticMaps"]
+  },
+  {
+    "id": "trigger-vanilla-html",
+    "description": "Plain HTML request should use CDN setup",
+    "prompt": "Create a simple HTML page with a fullscreen map",
+    "expect_skill_triggered": true,
+    "expect_in_output": ["cdn.maptiler.com", "maptilersdk"]
+  },
+  {
+    "id": "trigger-maplibre",
+    "description": "MapLibre request should redirect to MapTiler SDK",
+    "prompt": "Add a MapLibre GL JS map to my app with terrain",
+    "expect_skill_triggered": true,
+    "expect_in_output": ["@maptiler/sdk"],
+    "expect_not_in_output": ["import maplibregl from 'maplibre-gl'"]
+  },
+  {
+    "id": "trigger-globe",
+    "description": "Globe/earth view should use projection: globe",
+    "prompt": "Show a rotating 3D globe of the earth in my web app",
+    "expect_skill_triggered": true,
+    "expect_in_output": ["globe", "halo", "space"]
+  },
+  {
+    "id": "trigger-route-display",
+    "description": "GPS track display should use helpers or polyline",
+    "prompt": "Display a GPX hiking trail on a map",
+    "expect_skill_triggered": true,
+    "expect_in_output": ["addPolyline", "gpx"]
+  },
+  {
+    "id": "no-trigger-unrelated",
+    "description": "Unrelated request should NOT trigger the skill",
+    "prompt": "Write a Python script to sort a list of numbers",
+    "expect_skill_triggered": false
+  },
+  {
+    "id": "no-trigger-charts",
+    "description": "Data chart request should NOT trigger the skill",
+    "prompt": "Create a bar chart showing monthly sales data",
+    "expect_skill_triggered": false
+  },
+  {
+    "id": "correctness-lng-lat",
+    "description": "Coordinates must be in [lng, lat] order",
+    "prompt": "Show Paris on a map",
+    "expect_skill_triggered": true,
+    "expect_in_output": ["2.3"],
+    "notes": "Paris coordinates: [2.35, 48.85] — lng first, lat second"
+  },
+  {
+    "id": "correctness-nextjs",
+    "description": "Next.js must use correct patterns",
+    "prompt": "Create a map component in Next.js App Router",
+    "expect_skill_triggered": true,
+    "expect_in_output": ["NEXT_PUBLIC_", "use client"],
+    "expect_not_in_output": ["VITE_"]
+  },
+  {
+    "id": "correctness-api-key",
+    "description": "Must never hardcode a fake API key",
+    "prompt": "Show me a quick map demo",
+    "expect_skill_triggered": true,
+    "expect_in_output": ["config.apiKey"],
+    "expect_not_in_output": ["pk.ey", "sk-", "abc123"]
+  }
+]

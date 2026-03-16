@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geocoding Search - MapTiler SDK v3</title>
+  <link href="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.css" rel="stylesheet" />
+  <style>
+    body { margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+    #map { position: absolute; inset: 0; }
+
+    .search-panel {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: white;
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 1;
+      width: 320px;
+    }
+    .search-panel h3 { margin: 0 0 12px 0; font-size: 16px; }
+
+    .search-row {
+      display: flex;
+      gap: 8px;
+    }
+    .search-row input {
+      flex: 1;
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .search-row button {
+      padding: 10px 16px;
+      background: #0891b2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .search-row button:hover { background: #0e7490; }
+
+    .results {
+      margin-top: 12px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .result-item {
+      padding: 10px;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+      font-size: 13px;
+      transition: background 0.15s;
+    }
+    .result-item:hover { background: #f8f9fa; }
+    .result-item .place-name { font-weight: 600; color: #1e293b; }
+    .result-item .place-type { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+
+    .reverse-info {
+      margin-top: 12px;
+      padding: 10px;
+      background: #f8f9fa;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #475569;
+      display: none;
+    }
+    .reverse-info .label { font-weight: 600; color: #1e293b; }
+
+    .hint { font-size: 11px; color: #94a3b8; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <div class="search-panel">
+    <h3>Geocoding Demo</h3>
+
+    <div class="search-row">
+      <input type="text" id="searchInput" placeholder="Search for a place..." value="Prague Castle">
+      <button id="searchBtn">Search</button>
+    </div>
+
+    <div class="results" id="results"></div>
+    <div class="reverse-info" id="reverseInfo"></div>
+    <p class="hint">Click anywhere on the map for reverse geocoding.</p>
+  </div>
+
+  <script src="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.umd.min.js"></script>
+  <script>
+    maptilersdk.config.apiKey = 'YOUR_API_KEY';
+
+    const map = new maptilersdk.Map({
+      container: 'map',
+      style: maptilersdk.MapStyle.STREETS,
+      center: [14.4178, 50.1167],
+      zoom: 12,
+      navigationControl: true
+    });
+
+    let currentMarker = null;
+
+    // =========================================
+    // FORWARD GEOCODING: maptilersdk.geocoding.forward()
+    // Built-in — no additional packages needed
+    // =========================================
+    async function searchPlace(query) {
+      const result = await maptilersdk.geocoding.forward(query, {
+        language: [maptilersdk.Language.ENGLISH],
+        limit: 5,
+        // proximity: [14.4178, 50.1167],  // Bias near Prague
+        // country: ['cz'],                 // Limit to Czech Republic
+        // types: ['municipality'],          // Filter by type
+        fuzzyMatch: true,
+        autocomplete: true
+      });
+
+      displayResults(result.features);
+    }
+
+    function displayResults(features) {
+      const container = document.getElementById('results');
+      container.innerHTML = '';
+
+      if (features.length === 0) {
+        container.innerHTML = '<div class="result-item">No results found</div>';
+        return;
+      }
+
+      features.forEach(feature => {
+        const div = document.createElement('div');
+        div.className = 'result-item';
+        div.innerHTML = `
+          <div class="place-name">${feature.place_name || feature.text}</div>
+          <div class="place-type">${feature.place_type?.[0] || 'unknown'}</div>
+        `;
+
+        div.addEventListener('click', () => flyToResult(feature));
+        container.appendChild(div);
+      });
+    }
+
+    function flyToResult(feature) {
+      const coords = feature.geometry.coordinates;
+
+      // Remove previous marker
+      if (currentMarker) currentMarker.remove();
+
+      // Fly to result
+      map.flyTo({
+        center: coords,
+        zoom: 14,
+        duration: 2000,
+        essential: true
+      });
+
+      // Add marker with popup
+      currentMarker = new maptilersdk.Marker({ color: '#0891b2' })
+        .setLngLat(coords)
+        .setPopup(
+          new maptilersdk.Popup({ offset: 25 }).setHTML(
+            `<strong>${feature.place_name || feature.text}</strong>
+             <br><small>${coords[0].toFixed(4)}, ${coords[1].toFixed(4)}</small>`
+          )
+        )
+        .addTo(map);
+
+      currentMarker.togglePopup();
+    }
+
+    // =========================================
+    // REVERSE GEOCODING: maptilersdk.geocoding.reverse()
+    // Click map to get place name from coordinates
+    // =========================================
+    map.on('click', async (e) => {
+      const reverseInfo = document.getElementById('reverseInfo');
+
+      try {
+        const result = await maptilersdk.geocoding.reverse(
+          [e.lngLat.lng, e.lngLat.lat],
+          {
+            language: [maptilersdk.Language.ENGLISH],
+            limit: 1
+          }
+        );
+
+        if (result.features.length > 0) {
+          const place = result.features[0];
+
+          reverseInfo.style.display = 'block';
+          reverseInfo.innerHTML = `
+            <div class="label">Reverse Geocoding Result:</div>
+            <div>${place.place_name}</div>
+            <div style="margin-top: 4px; font-size: 11px; color: #94a3b8;">
+              ${e.lngLat.lng.toFixed(5)}, ${e.lngLat.lat.toFixed(5)}
+            </div>
+          `;
+
+          // Place marker
+          if (currentMarker) currentMarker.remove();
+          currentMarker = new maptilersdk.Marker({ color: '#ef4444' })
+            .setLngLat(e.lngLat)
+            .setPopup(
+              new maptilersdk.Popup({ offset: 25 }).setHTML(
+                `<strong>${place.place_name}</strong>`
+              )
+            )
+            .addTo(map);
+          currentMarker.togglePopup();
+        }
+      } catch (err) {
+        console.error('Reverse geocoding failed:', err);
+      }
+    });
+
+    // Search on button click or Enter key
+    document.getElementById('searchBtn').addEventListener('click', () => {
+      const query = document.getElementById('searchInput').value.trim();
+      if (query) searchPlace(query);
+    });
+
+    document.getElementById('searchInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const query = e.target.value.trim();
+        if (query) searchPlace(query);
+      }
+    });
+  </script>
+</body>
+</html>
