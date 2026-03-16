@@ -1,0 +1,82 @@
+[
+  {
+    "id": "trigger-react-map",
+    "query": "I want to add an interactive map to my React app",
+    "should_trigger": true
+  },
+  {
+    "id": "trigger-geocoding",
+    "query": "How do I add address search to my website?",
+    "should_trigger": true
+  },
+  {
+    "id": "trigger-store-locator",
+    "query": "Build a store locator for my business with search and map pins",
+    "should_trigger": true
+  },
+  {
+    "id": "trigger-3d-terrain",
+    "query": "Show mountains in 3D on a map",
+    "should_trigger": true
+  },
+  {
+    "id": "trigger-clustering",
+    "query": "Visualize earthquake data on a map with clustering",
+    "should_trigger": true
+  },
+  {
+    "id": "trigger-static-image",
+    "query": "Generate a map image for my email newsletter",
+    "should_trigger": true
+  },
+  {
+    "id": "trigger-vanilla-html",
+    "query": "Create a simple HTML page with a fullscreen map",
+    "should_trigger": true
+  },
+  {
+    "id": "trigger-maplibre",
+    "query": "Add a MapLibre GL JS map to my app with terrain",
+    "should_trigger": true
+  },
+  {
+    "id": "trigger-globe",
+    "query": "Show a rotating 3D globe of the earth in my web app",
+    "should_trigger": true
+  },
+  {
+    "id": "trigger-gpx",
+    "query": "Display a GPX hiking trail on a map",
+    "should_trigger": true
+  },
+  {
+    "id": "trigger-paris",
+    "query": "Show Paris on a map",
+    "should_trigger": true
+  },
+  {
+    "id": "trigger-nextjs",
+    "query": "Create a map component in Next.js App Router",
+    "should_trigger": true
+  },
+  {
+    "id": "trigger-quick-demo",
+    "query": "Show me a quick map demo",
+    "should_trigger": true
+  },
+  {
+    "id": "trigger-vite-markers",
+    "query": "Create a Vite React app that shows markers on a map for a list of cities",
+    "should_trigger": true
+  },
+  {
+    "id": "no-trigger-python",
+    "query": "Write a Python script to sort a list of numbers",
+    "should_trigger": false
+  },
+  {
+    "id": "no-trigger-charts",
+    "query": "Create a bar chart showing monthly sales data",
+    "should_trigger": false
+  }
+]

@@ -1,0 +1,1190 @@
+{
+  "exit_reason": "max_iterations (5)",
+  "original_description": "Expert coding skill for building interactive web maps with MapTiler SDK JS (built on MapLibre GL JS). USE WHEN the user wants to add a map to a web application, show locations on a map, display geographic data, build a store locator, create data visualizations on maps, add geocoding or address search, show routes or GPS tracks, display 3D terrain or globe view, use satellite imagery, add markers or popups, create heatmaps or clustering, embed static map images, get elevation data, or do IP geolocation. Also USE WHEN the user mentions MapLibre GL JS \u2014 MapTiler SDK extends MapLibre with built-in cloud services, helpers, and session billing. Covers React, Vue, Svelte, Angular, Next.js, and vanilla JS. Includes MapTiler Cloud REST APIs, vector layer helpers, weather visualization, and framework-specific patterns.",
+  "best_description": "MANDATORY for any task involving maps or geographic data. Invoke immediately when the user wants to: show a map, display a location, add markers, build a store locator, visualize geodata, search addresses/geocode, show GPS/GPX tracks, render 3D terrain, create a globe, generate static map images, add heatmaps or clustering, or integrate maps into React/Next.js/Vue/Svelte/Angular. If the query mentions \"map\", a place name to display, geographic coordinates, or spatial visualization \u2014 use this skill. Provides MapTiler SDK JS patterns (extends MapLibre GL JS) for all web mapping needs.",
+  "best_score": "4/5",
+  "best_train_score": "5/11",
+  "best_test_score": "4/5",
+  "final_description": "MANDATORY for any task involving maps or geographic data. Invoke immediately when the user wants to: show a map, display a location, add markers, build a store locator, visualize geodata, search addresses/geocode, show GPS/GPX tracks, render 3D terrain, create a globe, generate static map images, add heatmaps or clustering, or integrate maps into React/Next.js/Vue/Svelte/Angular. If the query mentions \"map\", a place name to display, geographic coordinates, or spatial visualization \u2014 use this skill. Provides MapTiler SDK JS patterns (extends MapLibre GL JS) for all web mapping needs.",
+  "iterations_run": 5,
+  "holdout": 0.3,
+  "train_size": 11,
+  "test_size": 5,
+  "history": [
+    {
+      "iteration": 1,
+      "description": "Expert coding skill for building interactive web maps with MapTiler SDK JS (built on MapLibre GL JS). USE WHEN the user wants to add a map to a web application, show locations on a map, display geographic data, build a store locator, create data visualizations on maps, add geocoding or address search, show routes or GPS tracks, display 3D terrain or globe view, use satellite imagery, add markers or popups, create heatmaps or clustering, embed static map images, get elevation data, or do IP geolocation. Also USE WHEN the user mentions MapLibre GL JS \u2014 MapTiler SDK extends MapLibre with built-in cloud services, helpers, and session billing. Covers React, Vue, Svelte, Angular, Next.js, and vanilla JS. Includes MapTiler Cloud REST APIs, vector layer helpers, weather visualization, and framework-specific patterns.",
+      "train_passed": 4,
+      "train_failed": 7,
+      "train_total": 11,
+      "train_results": [
+        {
+          "query": "Generate a map image for my email newsletter",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Create a map component in Next.js App Router",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Create a Vite React app that shows markers on a map for a list of cities",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Display a GPX hiking trail on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Build a store locator for my business with search and map pins",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Show mountains in 3D on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Visualize earthquake data on a map with clustering",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I want to add an interactive map to my React app",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "How do I add address search to my website?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Show Paris on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ],
+      "test_passed": 3,
+      "test_failed": 2,
+      "test_total": 5,
+      "test_results": [
+        {
+          "query": "Show a rotating 3D globe of the earth in my web app",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Show me a quick map demo",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Add a MapLibre GL JS map to my app with terrain",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Create a simple HTML page with a fullscreen map",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Create a bar chart showing monthly sales data",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ],
+      "passed": 4,
+      "failed": 7,
+      "total": 11,
+      "results": [
+        {
+          "query": "Generate a map image for my email newsletter",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Create a map component in Next.js App Router",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Create a Vite React app that shows markers on a map for a list of cities",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Display a GPX hiking trail on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Build a store locator for my business with search and map pins",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Show mountains in 3D on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Visualize earthquake data on a map with clustering",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I want to add an interactive map to my React app",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "How do I add address search to my website?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Show Paris on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "iteration": 2,
+      "description": "Use this skill ANY time the user wants to display a map, show locations, or work with geographic/spatial data in a web app. This is the default mapping skill \u2014 invoke it for tasks like: adding a map to React/Next.js/Vue/Svelte/Angular, showing a city or place on a map, placing markers or pins, building store locators, visualizing data geographically, searching addresses, displaying routes or GPS tracks, 3D terrain, globe views, satellite imagery, heatmaps, clustering, generating static map images, or geocoding. Also use when the user mentions MapLibre GL JS or MapTiler. If the user's request involves a map or geographic visualization of any kind, use this skill.",
+      "train_passed": 4,
+      "train_failed": 7,
+      "train_total": 11,
+      "train_results": [
+        {
+          "query": "Generate a map image for my email newsletter",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Create a Vite React app that shows markers on a map for a list of cities",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Create a map component in Next.js App Router",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Display a GPX hiking trail on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Build a store locator for my business with search and map pins",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Show mountains in 3D on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I want to add an interactive map to my React app",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Visualize earthquake data on a map with clustering",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "How do I add address search to my website?",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Show Paris on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        }
+      ],
+      "test_passed": 2,
+      "test_failed": 3,
+      "test_total": 5,
+      "test_results": [
+        {
+          "query": "Show a rotating 3D globe of the earth in my web app",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Show me a quick map demo",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Add a MapLibre GL JS map to my app with terrain",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Create a simple HTML page with a fullscreen map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Create a bar chart showing monthly sales data",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ],
+      "passed": 4,
+      "failed": 7,
+      "total": 11,
+      "results": [
+        {
+          "query": "Generate a map image for my email newsletter",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Create a Vite React app that shows markers on a map for a list of cities",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Create a map component in Next.js App Router",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Display a GPX hiking trail on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Build a store locator for my business with search and map pins",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Show mountains in 3D on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I want to add an interactive map to my React app",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Visualize earthquake data on a map with clustering",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "How do I add address search to my website?",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Show Paris on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        }
+      ]
+    },
+    {
+      "iteration": 3,
+      "description": "TRIGGER: any mention of \"map\", \"marker\", \"geocod\", \"terrain\", \"globe\", or geographic visualization. Use this skill whenever the user wants to show a map, place pins/markers, build a store locator, display routes/GPX tracks, visualize spatial data, search addresses, show 3D terrain, generate static map images, or work with MapLibre GL JS / MapTiler. This is the PRIMARY mapping skill for all web map tasks across React, Next.js, Vue, Svelte, Angular, and vanilla JS. If the query involves rendering a map or placing anything on a map, use this skill.",
+      "train_passed": 3,
+      "train_failed": 8,
+      "train_total": 11,
+      "train_results": [
+        {
+          "query": "Create a map component in Next.js App Router",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Create a Vite React app that shows markers on a map for a list of cities",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Generate a map image for my email newsletter",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Display a GPX hiking trail on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Build a store locator for my business with search and map pins",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Show mountains in 3D on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Visualize earthquake data on a map with clustering",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "How do I add address search to my website?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I want to add an interactive map to my React app",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Show Paris on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ],
+      "test_passed": 2,
+      "test_failed": 3,
+      "test_total": 5,
+      "test_results": [
+        {
+          "query": "Show a rotating 3D globe of the earth in my web app",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Show me a quick map demo",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Add a MapLibre GL JS map to my app with terrain",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Create a simple HTML page with a fullscreen map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Create a bar chart showing monthly sales data",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ],
+      "passed": 3,
+      "failed": 8,
+      "total": 11,
+      "results": [
+        {
+          "query": "Create a map component in Next.js App Router",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Create a Vite React app that shows markers on a map for a list of cities",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Generate a map image for my email newsletter",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Display a GPX hiking trail on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Build a store locator for my business with search and map pins",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Show mountains in 3D on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Visualize earthquake data on a map with clustering",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "How do I add address search to my website?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I want to add an interactive map to my React app",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Show Paris on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "iteration": 4,
+      "description": "A specialized coding assistant for building web maps. ALWAYS use this skill when the user's task involves: showing a map, placing markers/pins, displaying a location or city, building anything with maps (store locators, dashboards, visualizations), rendering geographic data, geocoding or address search, GPS/GPX track display, 3D terrain, globe view, satellite imagery, heatmaps, clustering, or static map images. Applies to all web frameworks: React, Next.js, Vue, Svelte, Angular, vanilla JS. This skill provides MapTiler SDK JS expertise \u2014 the correct way to add maps to any web project. If the word \"map\" appears in the request or the task requires showing places geographically, invoke this skill.",
+      "train_passed": 3,
+      "train_failed": 8,
+      "train_total": 11,
+      "train_results": [
+        {
+          "query": "Create a Vite React app that shows markers on a map for a list of cities",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Create a map component in Next.js App Router",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Generate a map image for my email newsletter",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Build a store locator for my business with search and map pins",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Display a GPX hiking trail on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Show mountains in 3D on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Visualize earthquake data on a map with clustering",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I want to add an interactive map to my React app",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "How do I add address search to my website?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Show Paris on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        }
+      ],
+      "test_passed": 2,
+      "test_failed": 3,
+      "test_total": 5,
+      "test_results": [
+        {
+          "query": "Show a rotating 3D globe of the earth in my web app",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Show me a quick map demo",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Create a simple HTML page with a fullscreen map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Add a MapLibre GL JS map to my app with terrain",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Create a bar chart showing monthly sales data",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ],
+      "passed": 3,
+      "failed": 8,
+      "total": 11,
+      "results": [
+        {
+          "query": "Create a Vite React app that shows markers on a map for a list of cities",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Create a map component in Next.js App Router",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Generate a map image for my email newsletter",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Build a store locator for my business with search and map pins",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Display a GPX hiking trail on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Show mountains in 3D on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Visualize earthquake data on a map with clustering",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "I want to add an interactive map to my React app",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "How do I add address search to my website?",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Show Paris on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        }
+      ]
+    },
+    {
+      "iteration": 5,
+      "description": "MANDATORY for any task involving maps or geographic data. Invoke immediately when the user wants to: show a map, display a location, add markers, build a store locator, visualize geodata, search addresses/geocode, show GPS/GPX tracks, render 3D terrain, create a globe, generate static map images, add heatmaps or clustering, or integrate maps into React/Next.js/Vue/Svelte/Angular. If the query mentions \"map\", a place name to display, geographic coordinates, or spatial visualization \u2014 use this skill. Provides MapTiler SDK JS patterns (extends MapLibre GL JS) for all web mapping needs.",
+      "train_passed": 5,
+      "train_failed": 6,
+      "train_total": 11,
+      "train_results": [
+        {
+          "query": "Create a map component in Next.js App Router",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Create a Vite React app that shows markers on a map for a list of cities",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Generate a map image for my email newsletter",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Build a store locator for my business with search and map pins",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Display a GPX hiking trail on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Show mountains in 3D on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Visualize earthquake data on a map with clustering",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I want to add an interactive map to my React app",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "How do I add address search to my website?",
+          "should_trigger": true,
+          "trigger_rate": 1.0,
+          "triggers": 2,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Show Paris on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ],
+      "test_passed": 4,
+      "test_failed": 1,
+      "test_total": 5,
+      "test_results": [
+        {
+          "query": "Show a rotating 3D globe of the earth in my web app",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Show me a quick map demo",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Add a MapLibre GL JS map to my app with terrain",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Create a simple HTML page with a fullscreen map",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Create a bar chart showing monthly sales data",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ],
+      "passed": 5,
+      "failed": 6,
+      "total": 11,
+      "results": [
+        {
+          "query": "Create a map component in Next.js App Router",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Create a Vite React app that shows markers on a map for a list of cities",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Generate a map image for my email newsletter",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Build a store locator for my business with search and map pins",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Display a GPX hiking trail on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Show mountains in 3D on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "Visualize earthquake data on a map with clustering",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "I want to add an interactive map to my React app",
+          "should_trigger": true,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": false
+        },
+        {
+          "query": "How do I add address search to my website?",
+          "should_trigger": true,
+          "trigger_rate": 1.0,
+          "triggers": 2,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Show Paris on a map",
+          "should_trigger": true,
+          "trigger_rate": 0.5,
+          "triggers": 1,
+          "runs": 2,
+          "pass": true
+        },
+        {
+          "query": "Write a Python script to sort a list of numbers",
+          "should_trigger": false,
+          "trigger_rate": 0.0,
+          "triggers": 0,
+          "runs": 2,
+          "pass": true
+        }
+      ]
+    }
+  ]
+}
