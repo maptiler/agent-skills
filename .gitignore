@@ -25,6 +25,7 @@ Thumbs.db
 # Eval results (regenerated, not tracked)
 tests/results/
 tests/results_v2/
+tests/library_analysis.json
 
 # Obsolete planning docs
 .github/PLAN.md
