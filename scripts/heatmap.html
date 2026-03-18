@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heatmap - MapTiler SDK v3</title>
+  <link href="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.css" rel="stylesheet" />
+  <style>
+    body { margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+    #map { position: absolute; inset: 0; }
+
+    .controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 1;
+      min-width: 240px;
+    }
+    .controls h3 { margin: 0 0 8px 0; font-size: 16px; }
+    .controls p { margin: 0 0 16px 0; font-size: 12px; color: #666; }
+
+    .slider-group { margin: 12px 0; }
+    .slider-group label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+    .slider-group input[type="range"] { width: 100%; }
+    .slider-value { color: #0891b2; font-weight: 600; }
+
+    .btn {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      background: #0891b2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .btn:hover { background: #0e7490; }
+
+    .style-select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      margin-top: 8px;
+      font-size: 13px;
+    }
+
+    .divider { height: 1px; background: #e2e8f0; margin: 12px 0; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <div class="controls">
+    <h3>Heatmap Demo</h3>
+    <p>Using helpers.addHeatmap() for one-call heatmap visualization.</p>
+
+    <div class="slider-group">
+      <label>
+        Points
+        <span class="slider-value" id="countVal">1000</span>
+      </label>
+      <input type="range" id="countSlider" min="100" max="5000" step="100" value="1000">
+    </div>
+
+    <div class="slider-group">
+      <label>
+        Radius
+        <span class="slider-value" id="radiusVal">25</span>
+      </label>
+      <input type="range" id="radiusSlider" min="5" max="60" step="5" value="25">
+    </div>
+
+    <div class="slider-group">
+      <label>
+        Intensity
+        <span class="slider-value" id="intensityVal">1.0</span>
+      </label>
+      <input type="range" id="intensitySlider" min="0.1" max="3" step="0.1" value="1">
+    </div>
+
+    <div class="slider-group">
+      <label>
+        Opacity
+        <span class="slider-value" id="opacityVal">0.8</span>
+      </label>
+      <input type="range" id="opacitySlider" min="0.1" max="1" step="0.1" value="0.8">
+    </div>
+
+    <div class="divider"></div>
+
+    <label style="font-size: 12px; color: #666; display: block; margin-bottom: 4px;">Base Map</label>
+    <select id="styleSelect" class="style-select">
+      <option value="DATAVIZ_DARK">Dataviz Dark</option>
+      <option value="DATAVIZ_LIGHT">Dataviz Light</option>
+      <option value="STREETS">Streets</option>
+      <option value="BASIC">Basic</option>
+    </select>
+
+    <button class="btn" id="regenerate">Regenerate</button>
+  </div>
+
+  <script src="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.umd.min.js"></script>
+  <script>
+    maptilersdk.config.apiKey = 'YOUR_API_KEY';
+
+    const STYLE_MAP = {
+      'DATAVIZ_DARK': maptilersdk.MapStyle.DATAVIZ.DARK,
+      'DATAVIZ_LIGHT': maptilersdk.MapStyle.DATAVIZ.LIGHT,
+      'STREETS': maptilersdk.MapStyle.STREETS,
+      'BASIC': maptilersdk.MapStyle.BASIC
+    };
+
+    const map = new maptilersdk.Map({
+      container: 'map',
+      style: maptilersdk.MapStyle.DATAVIZ.DARK,
+      center: [14.4178, 50.1167],
+      zoom: 10,
+      navigationControl: true
+    });
+
+    // Generate clustered random points (simulating real-world density)
+    function generateHeatData(count) {
+      const features = [];
+      // Create clusters around Prague hotspots
+      const hotspots = [
+        { center: [14.42, 50.08], spread: 0.02, weight: 0.4 },  // Old Town
+        { center: [14.44, 50.10], spread: 0.015, weight: 0.2 },  // Vinohrady
+        { center: [14.39, 50.07], spread: 0.01, weight: 0.15 },  // Mala Strana
+        { center: [14.47, 50.06], spread: 0.03, weight: 0.15 },  // Vysehrad area
+        { center: [14.35, 50.10], spread: 0.02, weight: 0.1 }    // Dejvice
+      ];
+
+      for (let i = 0; i < count; i++) {
+        // Pick a random hotspot based on weight
+        const rand = Math.random();
+        let cumWeight = 0;
+        let hotspot = hotspots[0];
+        for (const h of hotspots) {
+          cumWeight += h.weight;
+          if (rand <= cumWeight) { hotspot = h; break; }
+        }
+
+        // Gaussian-ish distribution around hotspot
+        const angle = Math.random() * Math.PI * 2;
+        const dist = Math.sqrt(-2 * Math.log(Math.random())) * hotspot.spread;
+        const lng = hotspot.center[0] + Math.cos(angle) * dist;
+        const lat = hotspot.center[1] + Math.sin(angle) * dist;
+
+        features.push({
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [lng, lat] },
+          properties: {
+            intensity: Math.random() * 10,
+            category: ['restaurant', 'shop', 'cafe', 'bar'][Math.floor(Math.random() * 4)]
+          }
+        });
+      }
+      return { type: 'FeatureCollection', features };
+    }
+
+    // Track current heatmap for cleanup
+    let currentHeatmap = null;
+
+    function addHeatmap() {
+      // Clean up previous
+      if (currentHeatmap) {
+        Object.values(currentHeatmap).forEach(id => {
+          if (typeof id === 'string') {
+            if (map.getLayer(id)) map.removeLayer(id);
+            if (map.getSource(id)) map.removeSource(id);
+          }
+        });
+      }
+
+      const count = parseInt(document.getElementById('countSlider').value);
+      const radius = parseInt(document.getElementById('radiusSlider').value);
+      const intensity = parseFloat(document.getElementById('intensitySlider').value);
+      const opacity = parseFloat(document.getElementById('opacitySlider').value);
+
+      // =========================================
+      // helpers.addHeatmap — one call heatmap
+      // Uses ColorRamp for automatic color mapping
+      // =========================================
+      currentHeatmap = maptilersdk.helpers.addHeatmap(map, {
+        data: generateHeatData(count),
+        colorRamp: maptilersdk.ColorRamp.TURBO,
+        property: 'intensity',
+        radius: radius,
+        intensity: intensity,
+        opacity: opacity,
+        zoomCompensation: true
+      });
+
+      console.log('Heatmap added:', currentHeatmap);
+    }
+
+    map.on('load', () => {
+      addHeatmap();
+    });
+
+    // Controls
+    ['countSlider', 'radiusSlider', 'intensitySlider', 'opacitySlider'].forEach(id => {
+      const slider = document.getElementById(id);
+      const valEl = document.getElementById(id.replace('Slider', 'Val'));
+
+      slider.addEventListener('input', () => {
+        valEl.textContent = slider.value;
+      });
+    });
+
+    document.getElementById('regenerate').addEventListener('click', () => {
+      if (map.isStyleLoaded()) {
+        addHeatmap();
+      }
+    });
+
+    // Style switching
+    document.getElementById('styleSelect').addEventListener('change', (e) => {
+      const style = STYLE_MAP[e.target.value];
+      map.setStyle(style);
+
+      map.once('styledata', () => {
+        addHeatmap();
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Point Clustering - MapTiler SDK</title>
+  <link href="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.css" rel="stylesheet" />
+  <style>
+    body { margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+    #map { position: absolute; inset: 0; }
+    
+    .controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 1;
+      min-width: 240px;
+    }
+    
+    .controls h3 { 
+      margin: 0 0 8px 0; 
+      font-size: 16px;
+    }
+    
+    .controls p {
+      margin: 0 0 16px 0;
+      font-size: 12px;
+      color: #666;
+    }
+    
+    .slider-group {
+      margin: 12px 0;
+    }
+    
+    .slider-group label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+    
+    .slider-group input[type="range"] {
+      width: 100%;
+    }
+    
+    .slider-value {
+      font-size: 12px;
+      color: #666;
+      float: right;
+    }
+    
+    .stats {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid #eee;
+    }
+    
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin: 4px 0;
+    }
+    
+    .stat-value {
+      font-weight: 600;
+      color: #0891b2;
+    }
+    
+    .btn {
+      width: 100%;
+      padding: 10px;
+      margin-top: 12px;
+      background: #0891b2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    
+    .btn:hover {
+      background: #0e7490;
+    }
+    
+    .legend {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid #eee;
+    }
+    
+    .legend-title {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      margin: 4px 0;
+    }
+    
+    .legend-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  
+  <div class="controls">
+    <h3>📍 Point Clustering</h3>
+    <p>Click clusters to zoom in. Essential for 100+ points.</p>
+    
+    <div class="slider-group">
+      <label>
+        Point Count
+        <span class="slider-value" id="countValue">500</span>
+      </label>
+      <input type="range" id="countSlider" min="100" max="5000" step="100" value="500">
+    </div>
+    
+    <div class="slider-group">
+      <label>
+        Cluster Radius (px)
+        <span class="slider-value" id="radiusValue">50</span>
+      </label>
+      <input type="range" id="radiusSlider" min="20" max="100" step="5" value="50">
+    </div>
+    
+    <div class="slider-group">
+      <label>
+        Max Cluster Zoom
+        <span class="slider-value" id="zoomValue">14</span>
+      </label>
+      <input type="range" id="zoomSlider" min="8" max="18" step="1" value="14">
+    </div>
+    
+    <button class="btn" id="regenerateBtn">Regenerate Points</button>
+    
+    <div class="stats">
+      <div class="stat-row">
+        <span>Total Points:</span>
+        <span class="stat-value" id="totalPoints">500</span>
+      </div>
+      <div class="stat-row">
+        <span>Visible Clusters:</span>
+        <span class="stat-value" id="clusterCount">-</span>
+      </div>
+    </div>
+    
+    <div class="legend">
+      <div class="legend-title">Cluster Size</div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #51bbd6;"></div>
+        <span>&lt; 100 points</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #f1f075;"></div>
+        <span>100 - 750 points</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #f28cb1;"></div>
+        <span>&gt; 750 points</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.umd.min.js"></script>
+  <script>
+    // SDK-first: Always set API key via global config
+    maptilersdk.config.apiKey = 'YOUR_API_KEY';
+    
+    // Config
+    let pointCount = 500;
+    let clusterRadius = 50;
+    let clusterMaxZoom = 14;
+    
+    // Initialize map
+    const map = new maptilersdk.Map({
+      container: 'map',
+      style: maptilersdk.MapStyle.STREETS,
+      center: [14.4178, 50.0],  // Czech Republic
+      zoom: 6,
+      navigationControl: true
+    });
+    
+    // =========================================
+    // GENERATE RANDOM POINTS (for demo)
+    // =========================================
+    function generatePoints(count) {
+      const features = [];
+      for (let i = 0; i < count; i++) {
+        // Random points across Czech Republic
+        const lng = 12.0 + Math.random() * 7;  // 12-19°E
+        const lat = 48.5 + Math.random() * 2.5; // 48.5-51°N
+        
+        features.push({
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [lng, lat]
+          },
+          properties: {
+            id: i,
+            name: `Location ${i + 1}`,
+            value: Math.floor(Math.random() * 100)
+          }
+        });
+      }
+      return {
+        type: 'FeatureCollection',
+        features
+      };
+    }
+    
+    // =========================================
+    // CLUSTERING: Source and layers setup
+    // =========================================
+    function setupClusteredLayers() {
+      // Remove existing if present
+      ['clusters', 'cluster-count', 'unclustered-point'].forEach(id => {
+        if (map.getLayer(id)) map.removeLayer(id);
+      });
+      if (map.getSource('points')) map.removeSource('points');
+      
+      // =========================================
+      // CRITICAL: Clustered GeoJSON source
+      // =========================================
+      map.addSource('points', {
+        type: 'geojson',
+        data: generatePoints(pointCount),
+        cluster: true,                    // Enable clustering
+        clusterMaxZoom: clusterMaxZoom,   // Stop clustering at this zoom
+        clusterRadius: clusterRadius      // Radius in pixels
+      });
+      
+      // =========================================
+      // LAYER 1: Cluster circles (aggregated points)
+      // =========================================
+      map.addLayer({
+        id: 'clusters',
+        type: 'circle',
+        source: 'points',
+        filter: ['has', 'point_count'],  // Only clusters have this property
+        paint: {
+          // Color based on point count (step expression)
+          'circle-color': [
+            'step',
+            ['get', 'point_count'],
+            '#51bbd6',      // Default: < 100
+            100, '#f1f075', // 100-750
+            750, '#f28cb1'  // 750+
+          ],
+          // Size based on point count
+          'circle-radius': [
+            'step',
+            ['get', 'point_count'],
+            20,          // Default: < 100
+            100, 30,     // 100-750
+            750, 40      // 750+
+          ],
+          'circle-stroke-width': 2,
+          'circle-stroke-color': '#fff'
+        }
+      });
+      
+      // =========================================
+      // LAYER 2: Cluster count labels
+      // =========================================
+      map.addLayer({
+        id: 'cluster-count',
+        type: 'symbol',
+        source: 'points',
+        filter: ['has', 'point_count'],
+        layout: {
+          'text-field': ['get', 'point_count_abbreviated'],
+          'text-font': ['Noto Sans Regular'],
+          'text-size': 12
+        },
+        paint: {
+          'text-color': '#333'
+        }
+      });
+      
+      // =========================================
+      // LAYER 3: Individual unclustered points
+      // =========================================
+      map.addLayer({
+        id: 'unclustered-point',
+        type: 'circle',
+        source: 'points',
+        filter: ['!', ['has', 'point_count']],  // Only non-clusters
+        paint: {
+          'circle-color': '#11b4da',
+          'circle-radius': 6,
+          'circle-stroke-width': 1,
+          'circle-stroke-color': '#fff'
+        }
+      });
+      
+      document.getElementById('totalPoints').textContent = pointCount;
+      updateClusterStats();
+    }
+    
+    // =========================================
+    // CLICK CLUSTER TO ZOOM IN
+    // =========================================
+    map.on('click', 'clusters', (e) => {
+      const features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
+      const clusterId = features[0].properties.cluster_id;
+      
+      // Get the zoom level needed to expand this cluster
+      map.getSource('points').getClusterExpansionZoom(clusterId, (err, zoom) => {
+        if (err) return;
+        
+        map.easeTo({
+          center: features[0].geometry.coordinates,
+          zoom: zoom,
+          duration: 500
+        });
+      });
+    });
+    
+    // =========================================
+    // CLICK INDIVIDUAL POINT for popup
+    // =========================================
+    map.on('click', 'unclustered-point', (e) => {
+      const feature = e.features[0];
+      const coords = feature.geometry.coordinates.slice();
+      
+      new maptilersdk.Popup()
+        .setLngLat(coords)
+        .setHTML(`
+          <strong>${feature.properties.name}</strong><br>
+          Value: ${feature.properties.value}
+        `)
+        .addTo(map);
+    });
+    
+    // =========================================
+    // HOVER CURSOR CHANGES
+    // =========================================
+    map.on('mouseenter', 'clusters', () => {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+    
+    map.on('mouseleave', 'clusters', () => {
+      map.getCanvas().style.cursor = '';
+    });
+    
+    map.on('mouseenter', 'unclustered-point', () => {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+    
+    map.on('mouseleave', 'unclustered-point', () => {
+      map.getCanvas().style.cursor = '';
+    });
+    
+    // =========================================
+    // UPDATE CLUSTER STATS on move
+    // =========================================
+    function updateClusterStats() {
+      const clusters = map.queryRenderedFeatures({ layers: ['clusters'] });
+      const unclustered = map.queryRenderedFeatures({ layers: ['unclustered-point'] });
+      document.getElementById('clusterCount').textContent = 
+        `${clusters.length} clusters + ${unclustered.length} points`;
+    }
+    
+    map.on('moveend', updateClusterStats);
+    
+    // =========================================
+    // INITIALIZATION
+    // =========================================
+    map.on('load', () => {
+      setupClusteredLayers();
+    });
+    
+    // =========================================
+    // CONTROLS
+    // =========================================
+    document.getElementById('countSlider').addEventListener('input', (e) => {
+      pointCount = parseInt(e.target.value);
+      document.getElementById('countValue').textContent = pointCount;
+    });
+    
+    document.getElementById('radiusSlider').addEventListener('input', (e) => {
+      clusterRadius = parseInt(e.target.value);
+      document.getElementById('radiusValue').textContent = clusterRadius;
+    });
+    
+    document.getElementById('zoomSlider').addEventListener('input', (e) => {
+      clusterMaxZoom = parseInt(e.target.value);
+      document.getElementById('zoomValue').textContent = clusterMaxZoom;
+    });
+    
+    document.getElementById('regenerateBtn').addEventListener('click', () => {
+      setupClusteredLayers();
+    });
+  </script>
+</body>
+</html>

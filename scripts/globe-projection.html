@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Globe Projection - MapTiler SDK</title>
+  <link href="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.css" rel="stylesheet" />
+  <style>
+    body { margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+    #map { position: absolute; inset: 0; }
+    
+    .controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 1;
+      min-width: 220px;
+    }
+    
+    .controls h3 { 
+      margin: 0 0 12px 0; 
+      font-size: 16px;
+    }
+    
+    .control-group {
+      margin: 12px 0;
+    }
+    
+    .control-group label {
+      display: block;
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 6px;
+    }
+    
+    .btn-group {
+      display: flex;
+      gap: 6px;
+    }
+    
+    .btn {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+    
+    .btn:hover {
+      background: #f5f5f5;
+    }
+    
+    .btn.active {
+      background: #0891b2;
+      color: white;
+      border-color: #0891b2;
+    }
+    
+    .slider-group {
+      margin: 16px 0;
+    }
+    
+    .slider-group input[type="range"] {
+      width: 100%;
+      margin-top: 4px;
+    }
+    
+    .slider-value {
+      font-size: 12px;
+      color: #666;
+      float: right;
+    }
+    
+    .location-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    
+    .location-btn {
+      padding: 8px 12px;
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: left;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+    
+    .location-btn:hover {
+      background: #e9ecef;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  
+  <div class="controls">
+    <h3>🌍 Globe Projection</h3>
+    
+    <div class="control-group">
+      <label>Projection</label>
+      <div class="btn-group">
+        <button class="btn active" id="globeBtn">Globe</button>
+        <button class="btn" id="flatBtn">Flat</button>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <label>Map Style</label>
+      <div class="btn-group">
+        <button class="btn active" data-style="SATELLITE">Satellite</button>
+        <button class="btn" data-style="HYBRID">Hybrid</button>
+        <button class="btn" data-style="STREETS">Streets</button>
+      </div>
+    </div>
+    
+    <div class="slider-group">
+      <label>
+        Star Intensity
+        <span class="slider-value" id="starValue">0.6</span>
+      </label>
+      <input type="range" id="starSlider" min="0" max="1" step="0.1" value="0.6">
+    </div>
+    
+    <div class="control-group">
+      <label>Fly To Location</label>
+      <div class="location-buttons">
+        <button class="location-btn" data-coords="[14.4178, 50.1167]" data-zoom="5">Czech Republic</button>
+        <button class="location-btn" data-coords="[-122.4, 37.8]" data-zoom="4">North America</button>
+        <button class="location-btn" data-coords="[139.7, 35.7]" data-zoom="4">Japan</button>
+        <button class="location-btn" data-coords="[0, 0]" data-zoom="1.5">Full Globe</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.maptiler.com/maptiler-sdk-js/latest/maptiler-sdk.umd.min.js"></script>
+  <script>
+    // SDK-first: Always set API key via global config
+    maptilersdk.config.apiKey = 'YOUR_API_KEY';
+    
+    // =========================================
+    // GLOBE PROJECTION: v3 recommended way
+    // Use halo + space constructor options
+    // =========================================
+    const map = new maptilersdk.Map({
+      container: 'map',
+      style: maptilersdk.MapStyle.SATELLITE,
+      center: [14.4178, 50.1167],  // Prague
+      zoom: 2,
+      projection: 'globe',  // Enable globe projection
+      halo: true,            // Atmospheric glow (v3)
+      space: true            // Skybox/starfield (v3)
+    });
+
+    map.on('load', () => {
+      // Add markers for visual interest
+      const cities = [
+        { coords: [14.4178, 50.1167], name: 'Prague' },
+        { coords: [-122.4194, 37.7749], name: 'San Francisco' },
+        { coords: [139.6917, 35.6895], name: 'Tokyo' },
+        { coords: [151.2093, -33.8688], name: 'Sydney' },
+        { coords: [-43.1729, -22.9068], name: 'Rio de Janeiro' }
+      ];
+      
+      cities.forEach(city => {
+        new maptilersdk.Marker({ color: '#0891b2' })
+          .setLngLat(city.coords)
+          .setPopup(new maptilersdk.Popup().setHTML(`<b>${city.name}</b>`))
+          .addTo(map);
+      });
+    });
+    
+    // =========================================
+    // TOGGLE PROJECTION: globe <-> mercator
+    // v3: setProjection() persists through style changes
+    // =========================================
+    function setProjection(type) {
+      map.setProjection(type);
+
+      if (type === 'globe') {
+        document.getElementById('globeBtn').classList.add('active');
+        document.getElementById('flatBtn').classList.remove('active');
+      } else {
+        document.getElementById('flatBtn').classList.add('active');
+        document.getElementById('globeBtn').classList.remove('active');
+      }
+    }
+    
+    document.getElementById('globeBtn').addEventListener('click', () => setProjection('globe'));
+    document.getElementById('flatBtn').addEventListener('click', () => setProjection('mercator'));
+    
+    // =========================================
+    // STYLE SWITCHING with layer preservation
+    // =========================================
+    document.querySelectorAll('[data-style]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const styleName = btn.dataset.style;
+        
+        // Update button states
+        document.querySelectorAll('[data-style]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // Change style
+        map.setStyle(maptilersdk.MapStyle[styleName]);
+        
+        // v3: halo/space persist through style changes automatically
+      });
+    });
+    
+    // =========================================
+    // FLY TO LOCATIONS
+    // =========================================
+    document.querySelectorAll('.location-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const coords = JSON.parse(btn.dataset.coords);
+        const zoom = parseFloat(btn.dataset.zoom);
+        
+        map.flyTo({
+          center: coords,
+          zoom: zoom,
+          duration: 3000,
+          essential: true
+        });
+      });
+    });
+  </script>
+</body>
+</html>
