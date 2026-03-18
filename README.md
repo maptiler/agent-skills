@@ -19,7 +19,7 @@ When a user asks to add maps, geocoding, location data, or geospatial features t
 
 ```bash
 # As a plugin (recommended)
-npx claude-code plugin add maptiler/agent-skill
+npx claude-code plugin add maptiler/agent-skills
 
 # Or manually — copy to your project
 mkdir -p .claude/skills/maptiler-sdk-js
